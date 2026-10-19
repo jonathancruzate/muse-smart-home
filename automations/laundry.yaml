@@ -1,0 +1,46 @@
+# Cross-platform demo: laundry finished -> speaker broadcast.
+# Trigger watches the GH-exclusive washer/dryer entities; the broadcast goes
+# out over the GH speakers. Only when the resident is home AND awake: never
+# broadcast to a sleeping person. A missed overnight completion stays visible
+# on the dashboard; a deferred morning reminder is a future improvement.
+- alias: laundry_washer_finished
+  trigger:
+    - platform: state
+      entity_id: laundry.washer
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.alex_home
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.sleeping
+      state: 'off'
+  action:
+    - service: notify.broadcast
+      target:
+        entity_id:
+          - speaker.living
+          - speaker.kitchen
+      data:
+        message: "The washer has finished."
+
+- alias: laundry_dryer_finished
+  trigger:
+    - platform: state
+      entity_id: laundry.dryer
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.alex_home
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.sleeping
+      state: 'off'
+  action:
+    - service: notify.broadcast
+      target:
+        entity_id:
+          - speaker.living
+          - speaker.kitchen
+      data:
+        message: "The dryer has finished."

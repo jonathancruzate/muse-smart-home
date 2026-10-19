@@ -1,0 +1,28 @@
+# Pet comfort: gentle comfort music when the pet is home alone.
+# Trigger: Primary resident (Alex) leaves home.
+# Condition: Pet is home (detected via SmartTag collar geofence).
+# Action: play gentle pet comfort music on YouTube via Google TV (AssistantFulfillment.OkGoogle).
+# Companion automation stops the music when the resident returns.
+- alias: pet_comfort_music_on
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.alex_home
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.pet_home
+      state: 'on'
+  action:
+    - service: media_player.play_pet_music
+      target:
+        entity_id: media_player.streaming_tv
+
+- alias: pet_comfort_music_off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.alex_home
+      to: 'on'
+  action:
+    - service: media_player.turn_off
+      target:
+        entity_id: media_player.streaming_tv

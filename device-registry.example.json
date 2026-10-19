@@ -1,0 +1,123 @@
+{
+  "_note": "Example device registry for the smart-home automation layer. All device names and IDs below are fictional placeholders. platform: st (SmartThings only), gh (Google Home only), both. GH-exclusive devices are the cross-platform surface: readable via engine/gh_devices.py, controllable via the gh CLI.",
+  "both_platforms": {
+    "aeotec_bedroom": {
+      "gh_id": "device@example-gh-sensor-001",
+      "st_id": "example-st-sensor-001",
+      "use": "motion/lux/temp/humidity; ST is authoritative"
+    },
+    "aeotec_frontdoor": {
+      "gh_id": "device@example-gh-sensor-002",
+      "st_id": "example-st-sensor-002",
+      "use": "motion/lux/temp/humidity; ST is authoritative"
+    },
+    "aeotec_living": {
+      "gh_id": "device@example-gh-sensor-003",
+      "st_id": "example-st-sensor-003",
+      "use": "motion/lux/temp/humidity; ST is authoritative"
+    },
+    "camera": {
+      "gh_id": "device@example-gh-camera-001",
+      "st_id": "example-st-camera-001"
+    },
+    "desk_lamp": {
+      "gh_id": "device@example-gh-light-001",
+      "st_id": "example-st-light-001"
+    },
+    "dining_room_lamp": {
+      "gh_id": "device@example-gh-light-002",
+      "st_id": "example-st-light-002"
+    },
+    "kitchen_light_1": {
+      "gh_id": "device@example-gh-light-003",
+      "st_id": "example-st-light-003"
+    },
+    "kitchen_light_2": {
+      "gh_id": "device@example-gh-light-004",
+      "st_id": "example-st-light-004"
+    },
+    "kitchen_light_3": {
+      "gh_id": "device@example-gh-light-005",
+      "st_id": "example-st-light-005"
+    },
+    "living_room_lamp": {
+      "gh_id": "device@example-gh-light-006",
+      "st_id": "example-st-light-006"
+    },
+    "night_table_lamp": {
+      "gh_id": "device@example-gh-light-007",
+      "st_id": "example-st-light-007"
+    },
+    "hallway_light": {
+      "gh_id": "device@example-gh-light-008",
+      "st_id": "example-st-light-008"
+    },
+    "smart_tv": {
+      "gh_id": "device@example-gh-tv-001",
+      "st_id": "example-st-tv-001",
+      "use": "TV awareness; ST is the reliable state path (GH MCP lags)"
+    }
+  },
+  "cross_platform_rules": [
+    "State: prefer ST for shared devices (GH MCP state can lag behind SmartThings).",
+    "Control: GH-exclusive devices only via gh CLI; never assume an ST path exists for them.",
+    "Speakers: broadcast via AssistantBroadcast; check gh_devices.py online flags before targeting.",
+    "Washer/dryer: GH trait state (program, onOff) drives laundry intelligence; no ST equivalent.",
+    "Humidifier: when GH cloud link is flaky, direct vendor API is the control/state authority and GH is the backup read."
+  ],
+  "gh_exclusive": {
+    "robot_mop": {
+      "display_name": "Robot Mop",
+      "gh_id": "device@example-gh-mop-001",
+      "use": "Robot mop; sleep-gated nightly mop"
+    },
+    "dryer": {
+      "display_name": "Dryer",
+      "gh_id": "device@example-gh-dryer-001",
+      "use": "Smart dryer; exposes program/duration/drying-level for laundry intelligence"
+    },
+    "humidifier": {
+      "display_name": "Humidifier",
+      "gh_id": "device@example-gh-humidifier-001",
+      "use": "Humidifier GH link; direct vendor API is authoritative for state/control"
+    },
+    "speaker_bathroom": {
+      "display_name": "Bathroom Speaker",
+      "gh_id": "device@example-gh-speaker-001",
+      "use": "AssistantBroadcast target"
+    },
+    "speaker_bedroom": {
+      "display_name": "Bedroom Display",
+      "gh_id": "device@example-gh-speaker-002",
+      "use": "AssistantBroadcast target, smart display alarms"
+    },
+    "speaker_dining": {
+      "display_name": "Dining Room Speaker",
+      "gh_id": "device@example-gh-speaker-003",
+      "use": "AssistantBroadcast target"
+    },
+    "speaker_kitchen": {
+      "display_name": "Kitchen Speaker",
+      "gh_id": "device@example-gh-speaker-004",
+      "use": "AssistantBroadcast target"
+    },
+    "speaker_living": {
+      "display_name": "Living Room Speaker",
+      "gh_id": "device@example-gh-speaker-005",
+      "use": "AssistantBroadcast target"
+    },
+    "washer": {
+      "display_name": "Washer",
+      "gh_id": "device@example-gh-washer-001",
+      "use": "Smart washer; exposes program/temp/spin/toggles for laundry intelligence"
+    },
+    "streaming_tv": {
+      "display_name": "Living Room Streaming TV",
+      "gh_id": "device@example-gh-streamtv-001",
+      "use": "Google TV streaming box — primary TV control target; plays pet comfort music via YouTube when owner is away"
+    }
+  },
+  "st_only": {
+    "_note": "ST-exclusive devices (not in GH): Primary Phone, Secondary Phone, Hub, SmartTag trackers (Keys, Wallet, Backpack, Pet Collar), and mode virtual switches."
+  }
+}

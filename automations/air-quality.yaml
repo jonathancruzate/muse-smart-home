@@ -1,0 +1,16 @@
+# Air purifier semantic control — declarative (migrated from winix_controller.py).
+# Standing rules: auto when sleeping / watching TV / working (turbo too loud),
+# turbo when away or idle (max allergy support), PlasmaWave always on.
+- alias: air_quality_semantic_control
+  trigger:
+    - platform: interval
+      minutes: 10
+  condition: []
+  action:
+    - service: winix.set_mode
+      target:
+        entity_id:
+          - purifier.kitchen
+          - purifier.bedroom
+      data:
+        mode: "{{ 'auto' if is_state('binary_sensor.sleeping', 'on') or is_state('media_player.smart_tv', 'on') or is_state('binary_sensor.working', 'on') else 'turbo' }}"

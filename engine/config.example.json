@@ -1,0 +1,93 @@
+{
+  "_comment": "Example configuration for the smart-home automation engine. Copy to config.json (or set SMART_HOME_CONFIG) and replace all placeholder values with your own device IDs and settings.",
+  "timezone": "America/New_York",
+  "owner_key": "alex",
+  "pet_key": "pet",
+  "home_location_id": "example-st-location-001",
+  "primary_tv_st_id": "example-st-tv-001",
+  "pet_home_lat": 0.0,
+  "pet_home_lng": 0.0,
+  "pet_geofence_radius_m": 250,
+  "pet_collar_st_id": "example-st-collar-001",
+  "pet_music_query": "play gentle pet comfort music on YouTube",
+  "paths": {
+    "goal_dir": "~/workspace/goals/manage-my-smart-home",
+    "st_cli": "~/workspace/skills/smartthings/bin/st",
+    "gh_cli": "~/workspace/skills/googlehome/bin/gh",
+    "winix_lib": "~/workspace/skills/winix/lib",
+    "winix_cli": "~/workspace/skills/winix/bin/winix",
+    "location_state": "~/workspace/location/hidden_files/location-state.json"
+  },
+  "sensors": {
+    "example-st-sensor-001": "bedroom",
+    "example-st-sensor-003": "living_room",
+    "example-st-sensor-002": "front_door"
+  },
+  "lamps": {
+    "example-st-light-007": "night_table_lamp",
+    "example-st-light-006": "living_room_lamp",
+    "example-st-light-008": "hallway_light",
+    "example-st-light-002": "dining_room_lamp",
+    "example-st-light-001": "desk_lamp",
+    "example-st-light-003": "kitchen_light_1"
+  },
+  "winix_purifiers": {
+    "example-winix-device-001": "kitchen",
+    "example-winix-device-002": "bedroom"
+  },
+  "tv_st_ids": {
+    "media_player.smart_tv": "example-st-tv-001"
+  },
+  "gh_tv_names": {
+    "media_player.streaming_tv": "Living Room Streaming TV"
+  },
+  "speakers": {
+    "speaker.bathroom": "Bathroom Speaker",
+    "speaker.bedroom": "Bedroom Display",
+    "speaker.dining": "Dining Room Speaker",
+    "speaker.kitchen": "Kitchen Speaker",
+    "speaker.living": "Living Room Speaker"
+  },
+  "gh_exclusive": {
+    "speaker_bathroom": {
+      "display_name": "Bathroom Speaker",
+      "gh_id": "device@example-gh-speaker-001"
+    },
+    "speaker_bedroom": {
+      "display_name": "Bedroom Display",
+      "gh_id": "device@example-gh-speaker-002"
+    },
+    "speaker_dining": {
+      "display_name": "Dining Room Speaker",
+      "gh_id": "device@example-gh-speaker-003"
+    },
+    "speaker_kitchen": {
+      "display_name": "Kitchen Speaker",
+      "gh_id": "device@example-gh-speaker-004"
+    },
+    "speaker_living": {
+      "display_name": "Living Room Speaker",
+      "gh_id": "device@example-gh-speaker-005"
+    },
+    "robot_mop": {
+      "display_name": "Robot Mop",
+      "gh_id": "device@example-gh-mop-001"
+    },
+    "humidifier": {
+      "display_name": "Humidifier",
+      "gh_id": "device@example-gh-humidifier-001"
+    },
+    "washer": {
+      "display_name": "Washer",
+      "gh_id": "device@example-gh-washer-001"
+    },
+    "dryer": {
+      "display_name": "Dryer",
+      "gh_id": "device@example-gh-dryer-001"
+    },
+    "streaming_tv": {
+      "display_name": "Living Room Streaming TV",
+      "gh_id": "device@example-gh-streamtv-001"
+    }
+  }
+}
