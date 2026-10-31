@@ -104,3 +104,10 @@ Every script in `engine/` reads `engine/config.json` (falling back to `engine/co
     python3 engine/entity_store.py --fresh
     python3 engine/automation_engine.py --dry-run
     ```
+
+## Install it with Muse
+
+Just give this prompt to your Muse:
+
+> "Install Muse Smart Home from https://github.com/jonathancruzate/muse-smart-home — read the README, install it, set it up for me, and show me how to use it."
+
