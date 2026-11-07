@@ -13,6 +13,7 @@ This repository is a generalized, reusable edition of a Muse user's smart-home a
 - **Multi-Source Presence & Context:** Combines phone geofence zone, SmartThings location mode, calendar blocks (sleep/work), room motion sensors, and SmartTag pet collar geofencing into a unified context snapshot (`engine/home_context.py`).
 - **Spoken Alerts & Broadcast Routing:** Routes spoken notifications to Google Home speakers (`AssistantBroadcast`) when home and awake, or to phone TTS (`?do=speak`) for urgent alerts when away and not at work.
 - **Cross-Platform Device Control:** Bridges SmartThings devices (multisensors, smart plugs/lamps, TVs, SmartTag trackers), Google Home-exclusive devices (speakers, washer/dryer, robot mop, Google TV streaming box), and direct vendor APIs (Winix air purifiers).
+- **RSSI Presence Mesh (pattern):** Fixed Wi-Fi points you already own (purifiers, a TV box, a robot vacuum, a desktop) feed one RSSI time series; per-point baselines and variance/anomaly votes corroborate presence at honest low weights — corroborate/challenge only, never a mode firer. See [`patterns/rssi-presence-mesh/`](patterns/rssi-presence-mesh/).
 - **Zero-Token Steady-State Execution:** A lightweight bash poll hook (`engine/automation_engine_poll.sh`) runs the pure-Python automation engine every 10 minutes, waking the LLM agent **only** when an error occurs or when a speaker broadcast fires (to log the chat record).
 
 ---
@@ -57,12 +58,19 @@ dist/
 │   └── pet.yaml                      # Presence rule: play comfort music on Google TV when pet is home alone
 ├── rules/
 │   └── automation-rules.md           # Core architectural principles, presence voting, and alert routing
-└── skills/
-    ├── googlehome/
-    │   └── SKILL.md                  # Google Home MCP control, broadcast routing, and actor census rules
-    └── macrodroid/
-        ├── SKILL.md                  # Universal webhook macro pattern (?do=mode|speak|status)
-        └── schema-essentials.md      # MacroDroid 6.0 JSON serialization reference
+├── skills/
+│   ├── googlehome/
+│   │   └── SKILL.md                  # Google Home MCP control, broadcast routing, and actor census rules
+│   └── macrodroid/
+│       ├── SKILL.md                  # Universal webhook macro pattern (?do=mode|speak|status)
+│       └── schema-essentials.md      # MacroDroid 6.0 JSON serialization reference
+└── patterns/
+    └── rssi-presence-mesh/           # RSSI presence mesh: fixed-point samplers, baselines, RF votes
+        ├── README.md                 # Pattern doc: architecture, tricks, honesty contract
+        ├── samplers/                 # Vendor-feed, TV-scan, robot, PC legs + Wi-Fi health
+        ├── baseline/                 # Per-point/hour baseline learner
+        ├── votes/                    # Corroborate/challenge-only RF votes (0.15 / 0.15 / 0.0)
+        └── samples/                  # Example series rows
 ```
 
 ---

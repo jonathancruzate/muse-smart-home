@@ -1,0 +1,4 @@
+{"ts": "2026-01-01T15:00:07+00:00", "source": "vendor-cloud-state.json (existing 300s awareness feed)", "points": {"winix-bedroom": -31, "winix-kitchen": -28}}
+{"ts": "2026-01-01T15:00:19+00:00", "source": "shield-wifi-sense scan (adb, awareness poll)", "points": {"shield-ap-main": -35, "shield-ap-extender": -41}}
+{"ts": "2026-01-01T15:01:02+00:00", "source": "roborock GET_NETWORK_INFO (local lane, awareness poll)", "points": {"roborock-ap-main": -24}}
+{"ts": "2026-01-01T15:05:11+00:00", "source": "vendor-cloud-state.json (existing 300s awareness feed)", "points": {"winix-bedroom": -33, "winix-kitchen": -27}}
