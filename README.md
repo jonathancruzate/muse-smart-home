@@ -14,6 +14,7 @@ This repository is a generalized, reusable edition of a Muse user's smart-home a
 - **Spoken Alerts & Broadcast Routing:** Routes spoken notifications to Google Home speakers (`AssistantBroadcast`) when home and awake, or to phone TTS (`?do=speak`) for urgent alerts when away and not at work.
 - **Cross-Platform Device Control:** Bridges SmartThings devices (multisensors, smart plugs/lamps, TVs, SmartTag trackers), Google Home-exclusive devices (speakers, washer/dryer, robot mop, Google TV streaming box), and direct vendor APIs (Winix air purifiers).
 - **RSSI Presence Mesh (pattern):** Fixed Wi-Fi points you already own (purifiers, a TV box, a robot vacuum, a desktop) feed one RSSI time series; per-point baselines and variance/anomaly votes corroborate presence at honest low weights — corroborate/challenge only, never a mode firer. See [`patterns/rssi-presence-mesh/`](patterns/rssi-presence-mesh/).
+- **Wake-on-LAN (pattern):** Wake a sleeping wired desktop or TV from an off-LAN agent by having an always-on LAN-resident device (an Android TV box over ADB) send the magic packet — broadcasts don't route, so the sender must live on the LAN — then verify wakefulness by the machine's real service (SSH), never by packet delivery. Operator-invoked only, never automated. See [`patterns/wake-on-lan/`](patterns/wake-on-lan/).
 - **Zero-Token Steady-State Execution:** A lightweight bash poll hook (`engine/automation_engine_poll.sh`) runs the pure-Python automation engine every 10 minutes, waking the LLM agent **only** when an error occurs or when a speaker broadcast fires (to log the chat record).
 
 ---
@@ -65,12 +66,15 @@ dist/
 │       ├── SKILL.md                  # Universal webhook macro pattern (?do=mode|speak|status)
 │       └── schema-essentials.md      # MacroDroid 6.0 JSON serialization reference
 └── patterns/
-    └── rssi-presence-mesh/           # RSSI presence mesh: fixed-point samplers, baselines, RF votes
-        ├── README.md                 # Pattern doc: architecture, tricks, honesty contract
-        ├── samplers/                 # Vendor-feed, TV-scan, robot, PC legs + Wi-Fi health
-        ├── baseline/                 # Per-point/hour baseline learner
-        ├── votes/                    # Corroborate/challenge-only RF votes (0.15 / 0.15 / 0.0)
-        └── samples/                  # Example series rows
+    ├── rssi-presence-mesh/           # RSSI presence mesh: fixed-point samplers, baselines, RF votes
+    │   ├── README.md                 # Pattern doc: architecture, tricks, honesty contract
+    │   ├── samplers/                 # Vendor-feed, TV-scan, robot, PC legs + Wi-Fi health
+    │   ├── baseline/                 # Per-point/hour baseline learner
+    │   ├── votes/                    # Corroborate/challenge-only RF votes (0.15 / 0.15 / 0.0)
+    │   └── samples/                  # Example series rows
+    └── wake-on-lan/                  # Wake-on-LAN via a LAN-resident sender (operator-invoked only)
+        ├── README.md                 # Pattern doc: sender options, target registry, verify discipline
+        └── wol.py                    # Registry + ADB/direct sender lanes + SSH verify
 ```
 
 ---
